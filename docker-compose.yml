@@ -1,0 +1,47 @@
+version: '3.7'
+
+# Services
+services:
+
+  # Nginx Service
+  nginx:
+    image: nginx:1.19.1-alpine
+    ports:
+      - 81:80 # you can change the first number to a number of your choose for the port 80 is usually the default I choose 81 so it does not conflict with open media vault just make sure when you enter //(yourIP it has :81 or the port you set it to
+    volumes:
+      - /srv/dev-disk-by-label-media/LEMP/config/nginx/www:/var/www/php:ro
+      - /srv/dev-disk-by-label-media/LEMP/config/nginx/conf.d:/etc/nginx/conf.d:ro
+      - /srv/dev-disk-by-label-media/LEMP/config/phpmyadmin/usr/src/phpmyadmin:/usr/src/phpmyadmin
+    depends_on:
+      - php
+      - phpmyadmin
+
+  # PHP Service
+  php:
+    build: /srv/dev-disk-by-label-media/LEMP/config/php
+    working_dir: /var/www/php
+    volumes:
+      - /srv/dev-disk-by-label-media/LEMP/config/nginx/www:/var/www/php
+    depends_on:
+      - mariadb
+
+  # MySQL Service
+  mariadb:
+    image: mariadb:latest
+    #mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: demo
+    volumes:
+      - /srv/dev-disk-by-label-media/LEMP/config/db/my.cnf:/etc/mysql/conf.d/my.cnf:ro
+      - /srv/dev-disk-by-label-media/LEMP/config/db/var/lib/mysql:/var/lib/mysql # you can change the ~ to a location on a external drive or other folder of your choosing
+
+  # PhpMyAdmin Service
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:5-fpm-alpine
+    environment:
+      PMA_HOST: mariadb
+    volumes:
+      - /srv/dev-disk-by-label-media/LEMP/config/phpmyadmin/usr/src/phpmyadmin:/usr/src/phpmyadmin
+    depends_on:
+      - mariadb
