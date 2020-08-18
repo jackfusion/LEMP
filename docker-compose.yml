@@ -39,6 +39,8 @@ services:
   # PhpMyAdmin Service
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:5-fpm-alpine
+    ports:
+      - 9998:9000
     environment:
       PMA_HOST: mariadb
     volumes:
