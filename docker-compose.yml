@@ -9,7 +9,7 @@ services:
     ports:
       - 80:80 # you can change the first number to a number of your choose for the port 80 is usually the default I choose 81 so it does not conflict with open media vault just make sure when you enter //(yourIP it has :81 or the port you set it to
     volumes:
-      - /srv/dev-disk-by-label-media/LEMP/config/nginx/www:/var/www/php:ro
+      - /srv/dev-disk-by-label-media/LEMP/config/nginx/www:/var/www/html:ro
       - /srv/dev-disk-by-label-media/LEMP/config/nginx/conf.d:/etc/nginx/conf.d:ro
       - /srv/dev-disk-by-label-media/LEMP/config/phpmyadmin/usr/src/phpmyadmin:/usr/src/phpmyadmin
     depends_on:
@@ -21,7 +21,7 @@ services:
     build: /srv/dev-disk-by-label-media/LEMP/config/php
     working_dir: /var/www/php
     volumes:
-      - /srv/dev-disk-by-label-media/LEMP/config/nginx/www:/var/www/php
+      - /srv/dev-disk-by-label-media/LEMP/config/nginx/www:/var/www/html
     depends_on:
       - mariadb
 
@@ -40,9 +40,10 @@ services:
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:5-fpm-alpine
 #    ports:
-#      - 9998:9000
+#      - 9998:80
     environment:
       PMA_HOST: mariadb
+#      PMA_PORT: 3306
     volumes:
       - /srv/dev-disk-by-label-media/LEMP/config/phpmyadmin/usr/src/phpmyadmin:/usr/src/phpmyadmin
     depends_on:
