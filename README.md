@@ -9,7 +9,7 @@ I have followed a tutorial from Docker for local web development introduction wh
 
 docker install on Debian - https://docs.docker.com/engine/install/debian/ and Install docker compose - https://docs.docker.com/compose/install/ for the docker and docker compose install
 
-sudo apt install libssl-dev python-dev libffi-dev libc6-dev gcc make python3-pip gnupg2 - these are what is recommended by Docker for alpine
+sudo apt install libssl-dev python-dev libffi-dev libc6-dev gcc make python3-pip gnupg2 net-tools - these are what is recommended by Docker for alpine
 
 Openmediavault 5 (OMV5) Complete Install and Setup including Portainer on PC - https://www.youtube.com/watch?v=A5ckT7pxrNY for install and setup of Open Media vault not including the OMV extras because they do not include up to date docker install the one for the docker docs dose.
 
