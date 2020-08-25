@@ -7,7 +7,7 @@ services:
   nginx:
     image: nginx:1.19.1-alpine
     ports:
-      - 80:80 # you can change the first number to a number of your choose for the port 80 is usually the default I choose 81 so it does not conflict with open media vault just make sure when you enter //(yourIP it has :81 or the port you set it to
+      - 80:80 # host port:container port
     volumes:
       - /srv/dev-disk-by-label-media/LEMP/config/nginx/www:/var/www/html:ro
       - /srv/dev-disk-by-label-media/LEMP/config/nginx/conf.d:/etc/nginx/conf.d:ro
