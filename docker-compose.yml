@@ -38,7 +38,7 @@ services:
 
   # PhpMyAdmin Service
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin:5-fpm-alpine
+    image: phpmyadmin/phpmyadmin
 #    ports:
 #      - 9998:80
     environment:
