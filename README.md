@@ -1,6 +1,6 @@
 # LEMP
 
-LEMP Install through Docker - This branch is a working with messy code<br />
+LEMP Install through Docker - This branch is working 100% with messy code<br />
 I am setting up a LEMP install the way I would like it with 
 
 L - Open Media Vault - Linux <br />E - Nginx <br />M - MariaDB <br />P - PHP and MYPHPAdmin
