@@ -13,4 +13,4 @@ sudo apt install libssl-dev python-dev libffi-dev libc6-dev gcc make python3-pip
 
 Openmediavault 5 (OMV5) Complete Install and Setup including Portainer on PC - https://www.youtube.com/watch?v=A5ckT7pxrNY for install and setup of Open Media vault not including the OMV extras because they do not include up to date docker install the one for the docker docs dose.
 
-I am still working through the myphpadmin setup to get it work and will update this project as I go along.
+All Working
