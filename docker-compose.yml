@@ -5,46 +5,61 @@ services:
 
   # Nginx Service
   nginx:
-    image: nginx:1.19.1-alpine
+    image: nginx:alpine
+    hostname: nginx
+    container_name: nginx
+    restart: always
     ports:
-      - 80:80 # host port:container port
+      - 9001:80 # host port:container port
     volumes:
-      - /srv/dev-disk-by-label-media/LEMP/config/nginx/www:/var/www/html:ro
-      - /srv/dev-disk-by-label-media/LEMP/config/nginx/conf.d:/etc/nginx/conf.d:ro
-      - /srv/dev-disk-by-label-media/LEMP/config/phpmyadmin/usr/src/phpmyadmin:/usr/src/phpmyadmin
+      - ${USERDIR}/config/nginx/www:/var/www/html:ro
+      - ${USERDIR}/config/nginx/conf.d:/etc/nginx/conf.d:ro
+      - ${USERDIR}/config/phpmyadmin/config:/usr/src/phpmyadmin
     depends_on:
       - php
       - phpmyadmin
 
   # PHP Service
   php:
-    build: /srv/dev-disk-by-label-media/LEMP/config/php
+    build: ${USERDIR}/config/php
+    hostname: php
+    container_name: php
+    restart: always
     working_dir: /var/www/php
     volumes:
-      - /srv/dev-disk-by-label-media/LEMP/config/nginx/www:/var/www/html
+      - ${USERDIR}/config/nginx/www:/var/www/html
     depends_on:
       - mariadb
 
   # MySQL Service
   mariadb:
     image: mariadb:latest
-    #mysql:8
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: demo
+    hostname: mariadb
+    container_name: mariadb
+    restart: always
     volumes:
-      - /srv/dev-disk-by-label-media/LEMP/config/db/my.cnf:/etc/mysql/conf.d/my.cnf:ro
-      - /srv/dev-disk-by-label-media/LEMP/config/db/var/lib/mysql:/var/lib/mysql # you can change the ~ to a location on a external drive or other folder of your choosing
+      - ${USERDIR}/config/db/my.cnf:/etc/mysql/conf.d/my.cnf:ro
+      - ${USERDIR}/config/db/config:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE="demo"
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
 
   # PhpMyAdmin Service
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-#    ports:
-#      - 9998:80
-    environment:
-      PMA_HOST: mariadb
-#      PMA_PORT: 3306
+    hostname: phpmyadmin
+    container_name: phpmyadmin
+    restart: always
+    ports:
+      - 9002:80
     volumes:
-      - /srv/dev-disk-by-label-media/LEMP/config/phpmyadmin/usr/src/phpmyadmin:/usr/src/phpmyadmin
+      - ${USERDIR}/config/phpmyadmin/config:/usr/src/phpmyadmin
+    environment:
+      - PMA_HOST=mariadb
+      - PMA_PORT=3306
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     depends_on:
       - mariadb
