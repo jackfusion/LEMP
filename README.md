@@ -1,10 +1,10 @@
 <p align="right"><a href="https://jackfusion.github.io/projects.html">Back to previuos page</a></p>
-LEMP Install through Docker I am setting up a LEMP install the way I would like it with
+LEMP Install through Docker I am setting up a LEMP install the way I would like it with<br />
 
-L - Open Media Vault - Linux
-E - Nginx
-M - MariaDB
-P - PHP and MYPHPAdmin
+<p>L - Open Media Vault - Linux<br />
+E - Nginx<br />
+M - MariaDB<br />
+P - PHP and MYPHPAdmin</p>
 
 I have followed a tutorial from Docker for local web development introduction why should you care - https://tech.osteel.me/posts/docker-for-local-web-development-introduction-why-should-you-care for the LEMP setup a key note on which I did not undersatnd when I did the index.php file is to have $connection = new PDO('[DBMS]:host=[HOST];dbname=demo;charset=utf8', 'root', 'root'); - this is from great help from osteel the writer of the blog.
 
